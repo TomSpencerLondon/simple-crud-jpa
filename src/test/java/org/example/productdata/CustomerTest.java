@@ -1,22 +1,21 @@
 package org.example.productdata;
 
-import org.example.productdata.entities.Product;
+
+import org.example.productdata.entities.Customer;
+import org.example.productdata.repository.CustomerRepository;
 import org.example.productdata.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.objenesis.SpringObjenesis;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class ProductdataApplicationTests {
+class CustomerTest {
 
     @Autowired
-    ProductRepository repository;
+    CustomerRepository repository;
 
     @Test
     void contextLoads() {
@@ -26,32 +25,31 @@ class ProductdataApplicationTests {
 
     @Test
     public void testCreate() {
-        Product product = new Product();
-        product.setId(1);
-        product.setName("Iphone");
-        product.setDesc("Awesome");
-        product.setPrice(1000d);
+        Customer customer = new Customer();
+        customer.setId(1);
+        customer.setName("Tom");
+        customer.setEmail("tom@tom.com");
 
-        repository.save(product);
+        repository.save(customer);
     }
 
     @Test
     void testRead() {
-        Product productById = repository
+        Customer customer = repository
                 .findById(1)
                 .orElse(null);
 
-        assertNotNull(productById);
-        assertEquals("Iphone", productById.getName());
-        System.out.println(">>>>>>>>>>>>>>>> " + productById.getDesc());
+        assertNotNull(customer);
+        assertEquals("Tom", customer.getName());
+        System.out.println(">>>>>>>>>>>>>>>> " + customer.getEmail());
     }
 
     @Test
     void testUpdate() {
-        Product productById = repository
+        Customer productById = repository
                 .findById(1)
                 .orElse(null);
-        productById.setPrice(1200d);
+        productById.setEmail("tom@tom2.com");
 
         repository.save(productById);
     }
@@ -66,3 +64,4 @@ class ProductdataApplicationTests {
         System.out.println(">>>>>>>>> Total records: " + repository.count());
     }
 }
+
