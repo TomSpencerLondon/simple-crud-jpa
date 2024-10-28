@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.objenesis.SpringObjenesis;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,5 +65,40 @@ class ProductdataApplicationTests {
     @Test
     void testCount() {
         System.out.println(">>>>>>>>> Total records: " + repository.count());
+    }
+
+    @Test
+    void findByName() {
+        List<Product> products = repository.findByName("Iwatch");
+
+        products.forEach(p -> System.out.println(p.getPrice()));
+    }
+
+    @Test
+    void findByNameAndDescription() {
+        List<Product> products = repository.findByNameAndDesc("TV", "From Samsung");
+
+        products.forEach(p -> System.out.println(p.getPrice()));
+    }
+
+    @Test
+    void findByPriceGreaterThan() {
+        List<Product> products = repository.findByPriceGreaterThan(1000d);
+
+        products.forEach(p -> System.out.println(p.getName()));
+    }
+
+    @Test
+    void findByDescContains() {
+        List<Product> products = repository.findByDescContains("Apple");
+
+        products.forEach(p -> System.out.println(p.getName()));
+    }
+
+    @Test
+    void findByPriceBetweeen() {
+        List<Product> products = repository.findByPriceBetween(500d, 2500d);
+
+        products.forEach(p -> System.out.println(p.getName()));
     }
 }
